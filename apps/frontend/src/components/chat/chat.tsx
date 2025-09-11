@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessage } from "@/components/chat/chat-message";
 import { useMessages } from "@/store/messages";
+import { ClearChatButton } from "./clear-chat";
 
 export const Chat = () => {
   const { messages } = useMessages();
@@ -26,8 +27,13 @@ export const Chat = () => {
                 Start a conversation with the AI assistant.
               </p>
             </div>
+            
           ) : (
             <div className="space-y-4">
+              <div className="flex justify-between items-center p-2">
+                
+                <ClearChatButton />
+              </div>
               {messages.map((message, index) => (
                 <ChatMessage
                   key={index}

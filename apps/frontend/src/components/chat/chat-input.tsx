@@ -9,6 +9,20 @@ interface ChatInputProps {
   onTypingChange: (isTyping: boolean) => void;
 }
 
+const SESSION_KEY = "bf_session_id";
+
+function getSessionId(): string {
+  let id = localStorage.getItem(SESSION_KEY);
+  if (!id) {
+    const gen =
+      (globalThis.crypto?.randomUUID?.() as string | undefined) ??
+      Math.random().toString(36).slice(2) + Date.now().toString(36);
+    id = gen;
+    localStorage.setItem(SESSION_KEY, id);
+  }
+  return id;
+}
+
 export const ChatInput = ({ onTypingChange }: ChatInputProps) => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +64,7 @@ export const ChatInput = ({ onTypingChange }: ChatInputProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          session_id: getSessionId(),
           messages: [...messages, { role: "user", content: input }],
         }),
       });
