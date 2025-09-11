@@ -5,14 +5,16 @@
   "workspaces": [
     "apps/*"
   ],
-  "scripts": {
-    "dev": "concurrently -n frontend,backend \"yarn workspace frontend dev\" \"yarn workspace backend dev\"",
-    "build": "yarn workspace frontend build && yarn workspace backend build",
-    "start": "yarn workspace backend start",
-    "test": "yarn workspace backend test"
-  },
+ "scripts": {
+  "dev:frontend": "yarn workspace frontend dev",
+  "dev:backend": "cd apps/backend-py && uvicorn main:app --host 0.0.0.0 --port 3000 --reload",
+  "dev": "concurrently -n frontend,backend \"yarn dev:frontend\" \"yarn dev:backend\"",
+  "build": "yarn workspace frontend build",
+  "start": "yarn dev:backend",
+  "test": "echo \"No tests for backend-py yet\""
+},
   "devDependencies": {
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.2.1",
     "typescript": "^5.4.2"
   },
   "packageManager": "yarn@4.9.1"
