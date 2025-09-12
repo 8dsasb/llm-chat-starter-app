@@ -45,7 +45,7 @@ llm-chat-starter-app/
 
 ### 1. Clone & Install
 ```bash
-git clone <your-fork-url>
+git clone https://github.com/8dsasb/llm-chat-starter-app.git
 cd llm-chat-starter-app
 yarn install
 ```
