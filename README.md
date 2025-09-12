@@ -84,7 +84,7 @@ yarn dev
   `POST /api/chat`  
   ```json
   {
-    "session_id": "1234", // optional
+    "session_id": "1234",
     "messages": [{ "role": "user", "content": "hello" }]
   }
   ```
