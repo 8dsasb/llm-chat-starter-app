@@ -1,98 +1,114 @@
-# LLM Chat Starter Application
+# LLM Chat App (FastAPI + React)
 
-A modern chat application built with React and OpenAI integration.
+A modern chat application built with **React (Vite + TypeScript)** and a new **Python FastAPI backend** that streams responses via **Server-Sent Events (SSE)**.  
+This project extends the [starter app](https://github.com/brainfish-ai/llm-chat-starter-app).
 
-## Project Structure
+---
 
-The project is organized as a Yarn 4 monorepo with the following structure:
-
+## 📂 Project Structure
 ```
 llm-chat-starter-app/
 ├── apps/
-│   ├── frontend/     # Vite + React + TypeScript + shadcn
-│   └── backend/      # Hono backend with OpenAI integration
+│   ├── frontend/      # Vite + React + shadcn/ui components
+│   ├── backend/       # Original Node backend (not used now)
+│   └── backend-py/    # New FastAPI backend with SSE + history
 ```
 
-## Prerequisites
+---
 
-- Node.js (v18 or higher)
-- Yarn (v4)
-- OpenAI API key
+## ✨ Features
+- **Chat with LLMs**
+  - Providers: `mock`, `openai`, `openrouter`
+  - Streaming responses via SSE
+- **Conversation History**
+  - Persistent SQLite DB using SQLModel
+  - Sessions keyed by `session_id`
+  - REST endpoint: `GET /api/history/{session_id}`
+- **Session Persistence**
+  - `session_id` stored in `localStorage`
+  - Conversations survive page refreshes
+- **New Chat Button**
+  - Clears current messages and session
+  - Starts a fresh conversation (like ChatGPT)
 
-## Setup Instructions
+---
 
-1. Clone the repository:
+## 🔧 Prerequisites
+- Node.js (v18+)  
+- Yarn (v4)  
+- Python 3.10+ with `venv`  
+- (Optional) OpenRouter or OpenAI API key  
 
+---
+
+## 🚀 Setup Instructions
+
+### 1. Clone & Install
 ```bash
-git clone https://github.com/brainfish-ai/llm-chat-starter-app.git
+git clone https://github.com/8dsasb/llm-chat-starter-app.git
 cd llm-chat-starter-app
-```
-
-2. Install dependencies:
-
-```bash
 yarn install
 ```
 
-3. Set up environment variables:
-
-**Backend**
-
+### 2. Backend Setup
 ```bash
-# Navigate to the backend directory
-cd apps/backend
-
-# Create a .env file
+cd apps/backend-py
+python -m venv .venv
+.venv\Scripts\activate     # Windows
+pip install --upgrade pip
+pip install -r requirements.txt
 cp .env.example .env
-
-# Add your OpenAI API key to the .env file
 ```
 
-**Frontend**
-
-```bash
-# Navigate to the backend directory
-cd apps/backend
-
-# Create a .env file
-cp .env.example .env
-
-# Add your OpenAI API key to the .env file
+Edit `.env`:
+```env
+PROVIDER=mock   # mock | openai | openrouter
 ```
 
-4. Start the development servers:
-
+### 3. Start Dev Servers
+From the **repo root**:
 ```bash
-# From the root directory
 yarn dev
 ```
+- Frontend → http://localhost:5173  
+- Backend → http://localhost:3000  
 
-This will start both the frontend (at http://localhost:5173) and the backend (at http://localhost:3000).
+---
 
-## Testing
+## 🔌 API Endpoints
 
-The backend uses Vitest for testing. To run tests:
+- **Health check**  
+  `GET /health` → `{ "ok": true, "provider": "mock" }`
 
-```bash
-# Run all tests
-yarn test
+- **Chat (SSE)**  
+  `POST /api/chat`  
+  ```json
+  {
+    "session_id": "1234",
+    "messages": [{ "role": "user", "content": "hello" }]
+  }
+  ```
 
-# Run backend tests only
-yarn workspace backend test
+- **Conversation history**  
+  `GET /api/history/{session_id}` → returns saved messages
 
-# Run tests in watch mode
-yarn workspace backend test --watch
-```
+---
 
-Note: Frontend tests are not currently set up.
+## 🛠 Enhancement
+This fork implements **Conversation History** as the chosen enhancement:
+- Messages persisted in SQLite
+- Sessions persist across reloads
+- “New Chat” button resets session
 
-## Technologies Used
+---
 
-- **Frontend**: Vite, React, TypeScript, shadcn UI components
-- **Backend**: Hono, Node.js, TypeScript
-- **Monorepo**: Yarn 4 workspaces
-- **LLM Integration**: OpenAI API
+## 🧰 Technologies
+- **Frontend:** Vite, React, TypeScript, shadcn/ui  
+- **Backend:** FastAPI, Uvicorn, SQLModel (SQLite)  
+- **LLM Integration:** Mock, OpenAI, OpenRouter  
+- **Monorepo:** Yarn 4 workspaces  
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📜 License
+MIT
