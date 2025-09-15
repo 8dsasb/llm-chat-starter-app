@@ -6,8 +6,11 @@ This project extends the [starter app](https://github.com/brainfish-ai/llm-chat-
 ## Project Structure
 llm-chat-starter-app/
 ├── apps/
+
 │   ├── frontend/      # Vite + React + shadcn/ui components
+
 │   ├── backend/       # Original Node backend (removed, not used now)
+
 │   └── backend-py/    # New FastAPI backend with SSE + history + file upload
 
 ## Features
