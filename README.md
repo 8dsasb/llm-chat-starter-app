@@ -60,20 +60,20 @@ cp .env.example .env
 Edit .env (choose one provider):
 PROVIDER=mock
 
-## Hugging Face
+### Hugging Face
 HF_API_KEY=hf_xxxxxxxxxxxxx
 
-HF_MODEL=facebook/your_selected_model"
+HF_MODEL=your_selected_model"
 
-## OpenAI
+### OpenAI
 OPENAI_API_KEY=sk-xxxxxxxxxxxxx
 
-## OpenRouter
+### OpenRouter
 OPENROUTER_API_KEY=or_xxxxxxxxxxxxx
 
 OPENROUTER_MODEL=deepseek/deepseek-chat-v3.1:free
 
-## Database
+### Database
 
 DB_URL=sqlite:///./chat_history.db
 
