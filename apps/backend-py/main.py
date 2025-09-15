@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import health, chat, history
+from routes import upload
+from db import init_db
 
 app = FastAPI(title="Brainfish Chat (FastAPI)")
+init_db() 
+app.include_router(upload.router, prefix="/api")
 
 # CORS for frontend
 app.add_middleware(

@@ -4,11 +4,28 @@ import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessage } from "@/components/chat/chat-message";
 import { useMessages } from "@/store/messages";
 import { ClearChatButton } from "./clear-chat";
+import type { Message } from "@/types/chat";
+import { FileUpload } from "./file-upload";
+
 
 export const Chat = () => {
-  const { messages } = useMessages();
+  const { messages, addMessage, clearMessages } = useMessages();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [isTyping, setIsTyping] = useState(false);
+
+  // Load convo history
+  useEffect(() => {
+  const sessionId = localStorage.getItem("bf_session_id");
+  if (!sessionId) return;
+
+  fetch(`/api/history/${sessionId}`)
+    .then((res) => res.json())
+    .then((data: Message[]) => {
+      clearMessages();
+      data.forEach((msg) => addMessage(msg));
+    })
+    .catch((err) => console.error("Failed to load history:", err));
+}, []);
 
   // Scroll to bottom when messages change or typing state changes
   useEffect(() => {
@@ -46,11 +63,13 @@ export const Chat = () => {
                 />
               ))}
             </div>
+            
           )}
         </div>
       </div>
       <div className="w-full bg-background z-20 p-4 border-t">
         <div className="max-w-screen-md mx-auto">
+          <FileUpload />
           <ChatInput onTypingChange={setIsTyping} />
         </div>
       </div>
