@@ -60,22 +60,26 @@ cp .env.example .env
 Edit .env (choose one provider):
 PROVIDER=mock
 
-# Hugging Face
+## Hugging Face
 HF_API_KEY=hf_xxxxxxxxxxxxx
-HF_MODEL=facebook/bart-large-cnn
 
-# OpenAI
+HF_MODEL=facebook/your_selected_model"
+
+## OpenAI
 OPENAI_API_KEY=sk-xxxxxxxxxxxxx
 
-# OpenRouter
+## OpenRouter
 OPENROUTER_API_KEY=or_xxxxxxxxxxxxx
+
 OPENROUTER_MODEL=deepseek/deepseek-chat-v3.1:free
 
-# Database
+## Database
+
 DB_URL=sqlite:///./chat_history.db
 
 ### 3. Start Dev Servers
 From the repo root:
+
 yarn dev
 
 - Frontend → http://localhost:5173  
