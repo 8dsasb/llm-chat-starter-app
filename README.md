@@ -113,5 +113,9 @@ This fork implements Conversation History + File Upload Context as the chosen en
 - OpenRouter free models (like DeepSeek) may hit rate limits (429). Retry logic may be required.
 - Only FastAPI backend (apps/backend-py) is supported; the Node backend has been removed.
 
+## Chatbot Screenshot
+
+<img width="1022" height="893" alt="image" src="https://github.com/user-attachments/assets/28e8ef3d-fa26-45f3-b710-dfeb7cbec1a5" />
+
 ## License
 MIT
