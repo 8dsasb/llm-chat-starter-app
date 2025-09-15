@@ -5,6 +5,7 @@ This project extends the [starter app](https://github.com/brainfish-ai/llm-chat-
 
 ## Project Structure
 llm-chat-starter-app/
+
 ├── apps/
 
 │   ├── frontend/      # Vite + React + shadcn/ui components
