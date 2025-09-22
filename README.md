@@ -51,13 +51,19 @@ yarn install
 
 ### 2. Backend Setup
 cd apps/backend-py
+
 python -m venv .venv
+
 .venv\Scripts\activate     # Windows
+
 pip install --upgrade pip
+
 pip install -r requirements.txt
+
 cp .env.example .env
 
 Edit .env (choose one provider):
+
 PROVIDER=mock
 
 ### Hugging Face
